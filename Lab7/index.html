@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorium 7 - Formularz i Operacje</title>
+    <style>
+        body {
+            background: #0b1320;
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            margin: 0;
+            gap: 50px;
+        }
+
+        .section-box {
+            background: #162130;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 0;
+            color: #cf30aa;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        input[type="text"], 
+        input[type="password"], 
+        input[type="date"], 
+        select {
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #2a3a50;
+            background: #0b1320;
+            color: white;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #cf30aa;
+        }
+
+        .radio-group, .checkbox-group {
+            font-size: 14px;
+            margin: 10px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #cf30aa;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #e639bc;
+        }
+
+        #out-reg, #out-div {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+            min-height: 20px;
+        }
+
+        .divider {
+            width: 100%;
+            max-width: 500px;
+            border-bottom: 1px dashed #2a3a50;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="section-box">
+        <h2>Rejestracja</h2>
+        <div class="form-group">
+            <input type="text" id="user" placeholder="Imię">
+        </div>
+        <div class="form-group">
+            <input type="text" id="email" placeholder="Email">
+        </div>
+        <div class="form-group">
+            <input type="password" id="pass" placeholder="Hasło">
+        </div>
+        <div class="form-group">
+            <input type="password" id="pass2" placeholder="Powtórz hasło">
+        </div>
+        <div class="form-group">
+            <input type="date" id="bday">
+        </div>
+        <div class="form-group">
+            <select id="gender">
+                <option value="">Wybierz płeć</option>
+                <option>Mężczyzna</option>
+                <option>Kobieta</option>
+                <option>Inna</option>
+            </select>
+        </div>
+        <div class="radio-group">
+            <label><input type="radio" name="ver" value="Darmowa"> Darmowa</label>
+            <label><input type="radio" name="ver" value="Standardowa"> Standardowa</label>
+            <label><input type="radio" name="ver" value="Premium"> Premium</label>
+        </div>
+        <div class="checkbox-group">
+            <label><input type="checkbox" id="terms"> Akceptuję regulamin</label>
+        </div>
+        <button class="btn" onclick="processRegistration()">Zarejestruj</button>
+        <p id="out-reg"></p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-box">
+        <h2>Dzielenie</h2>
+        <div class="form-group">
+            <input type="text" id="num1" placeholder="Liczba 1">
+        </div>
+        <div class="form-group">
+            <input type="text" id="num2" placeholder="Liczba 2">
+        </div>
+        <button class="btn" onclick="processDivision()">Oblicz</button>
+        <p id="out-div"></p>
+    </div>
+
+    <script>
+        function processRegistration() {
+            const user = document.getElementById('user').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const pass = document.getElementById('pass').value;
+            const pass2 = document.getElementById('pass2').value;
+            const bday = document.getElementById('bday').value;
+            const terms = document.getElementById('terms').checked;
+            const ver = document.querySelector('input[name="ver"]:checked');
+            const out = document.getElementById('out-reg');
+
+            const err = [];
+
+            if (!user) err.push("Wpisz imię");
+            if (!email.includes("@")) err.push("Błędny email");
+            if (pass.length < 8) err.push("Hasło za krótkie");
+            if (pass !== pass2) err.push("Hasła się różnią");
+
+            if (bday) {
+                const bDate = new Date(bday);
+                const today = new Date();
+                let age = today.getFullYear() - bDate.getFullYear();
+                if (today.getMonth() < bDate.getMonth() || (today.getMonth() === bDate.getMonth() && today.getDate() < bDate.getDate())) {
+                    age--;
+                }
+                if (age < 18) err.push("Wymagane 18 lat");
+            } else {
+                err.push("Podaj datę");
+            }
+
+            if (!terms) err.push("Zaznacz regulamin");
+            if (!ver) err.push("Wybierz wersję");
+
+            if (err.length > 0) {
+                out.style.color = "#ff4d4d";
+                out.textContent = err.join(", ");
+            } else {
+                out.style.color = "#4dff88";
+                out.textContent = "Zarejestrowano pomyślnie!";
+            }
+        }
+
+        function processDivision() {
+            const out = document.getElementById('out-div');
+            try {
+                const a = parseFloat(document.getElementById('num1').value);
+                const b = parseFloat(document.getElementById('num2').value);
+
+                if (isNaN(a) || isNaN(b)) throw new Error("Wpisz poprawne liczby");
+                if (b === 0) throw new Error("Nie dziel przez zero");
+
+                out.style.color = "white";
+                out.textContent = `${a} / ${b} = ${(a / b).toFixed(2)}`;
+            } catch (e) {
+                out.style.color = "#ff4d4d";
+                out.textContent = e.message;
+            }
+        }
+    </script>
+</body>
+</html>

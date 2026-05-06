@@ -1,0 +1,104 @@
+.top-banner h1 {
+    line-height: 1.1;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 32px;
+    color: #fdfdfd;
+    margin: 0;
+  }
+  
+  .top-banner {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background-color: #4a4848;
+    gap: 15px;
+    padding: 10px 0;
+  }
+  
+  .lab-title {
+    color: #0000cd;
+    line-height: 1.2;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 26px;
+    text-align: center;
+    font-weight: 700;
+  }
+  
+  .course-info p {
+    color: #0000cd;
+    line-height: 1.2;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 18px;
+    text-align: center;
+    font-weight: 600;
+  }
+  
+  .course-info a {
+    color: #2e8b57;
+    text-decoration: none;
+  }
+  
+  .course-info a:hover {
+    text-decoration: underline;
+  }
+  
+  .text-container {
+    max-width: 620px;
+    height: 210px;
+    border: 2px dotted #00008b;
+    padding: 12px;
+    background-color: rgba(70, 70, 220, 0.2);
+    overflow-y: auto;
+    border-radius: 4px;
+  }
+  
+  .text-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15px 0;
+  }
+  
+  table {
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+  
+  td {
+    border: 1px solid #808080;
+    padding: 12px;
+    text-align: center;
+    color: #0000cd;
+    width: 125px;
+  }
+  
+  .bg-blue {
+    background-color: rgba(70, 70, 220, 0.2);
+  }
+  
+  .text-blue-center {
+    color: #0000cd;
+    text-align: center;
+    font-size: 21px;
+  }
+  
+  .text-danger {
+    color: #dc143c;
+  }
+  
+  .text-warning {
+    color: #ff6347;
+  }
+  
+  .text-accent {
+    color: #ff8c00;
+  }
+  
+  .custom-list,
+  ul,
+  li {
+    color: #0000cd;
+    list-style-type: square;
+    font-size: 21px;
+  }

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            background: #1a0f0a; color: #e6ccb2; 
+            font-family: 'Cinzel', serif; display: flex; justify-content: center;
+        }
+        .game-container { width: 400px; text-align: center; padding: 20px; }
+        #cauldron { 
+            font-size: 80px; cursor: pointer; transition: 0.1s; 
+            filter: drop-shadow(0 0 15px #ff9d00); margin: 30px 0;
+        }
+        .stats { background: #2b1d12; padding: 15px; border-radius: 10px; border: 2px solid #7f5539; }
+        .shop-item { 
+            display: flex; justify-content: space-between; 
+            padding: 10px; margin: 5px 0; background: #3d2b1f; 
+            border-radius: 5px; cursor: pointer; border: 1px solid transparent;
+        }
+        .shop-item:hover { border-color: #ede0d4; }
+        .poor { opacity: 0.5; }
+        .maxed { background: #7f5539; color: #fff; cursor: default; }
+        .gold { color: #ffb703; font-size: 24px; }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Alchemy Lab</h1>
+        <div class="stats">
+            <div class="gold"><span id="gold-display">0</span> 🪙</div>
+            <div style="font-size: 12px; margin-top: 5px;">
+                Per Click: <span id="cpc-val">1</span> | Per Sec: <span id="cps-val">0</span>
+            </div>
+        </div>
+        
+        <div id="cauldron">⚗️</div>
+        
+        <h3>Grimoire (Upgrades)</h3>
+        <div id="shop"></div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>

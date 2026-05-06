@@ -1,0 +1,70 @@
+.branding {
+    background-color: #ffd700;
+  }
+  
+  .site-header {
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #228b22;
+  }
+  
+  .navigation-menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-grow: 1;
+  }
+  
+  .nav-link {
+    background-color: #00ffff;
+    width: 105px;
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #000;
+    text-decoration: none;
+    color: #000;
+  }
+  
+  .page-body {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .main-content {
+    width: 1220px;
+    display: flex;
+    flex-direction: column;
+    background-color: #ff8c00;
+    margin-top: 15px;
+    padding: 10px;
+  }
+  
+  .primary-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+  }
+  
+  .primary-list li {
+    text-align: end;
+    padding-right: 5px;
+  }
+  
+  .text-description p {
+    font-size: 48px;
+    font-weight: 800;
+    text-decoration: underline;
+    line-height: 1.3;
+  }
+  
+  .site-footer {
+    background-color: #dc143c;
+    text-align: center;
+    padding: 18px 0;
+    font-weight: bold;
+  }

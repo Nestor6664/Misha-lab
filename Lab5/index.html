@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skrypty JS</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 30px; background-color: #f4f4f9; }
+        .wrapper { max-width: 400px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { font-size: 24px; color: #333; }
+        .menu-list { display: flex; flex-direction: column; gap: 8px; }
+        button { 
+            padding: 12px; 
+            border: 1px solid #ddd; 
+            background: #fff; 
+            cursor: pointer; 
+            text-align: left; 
+            transition: 0.2s;
+            border-radius: 4px;
+        }
+        button:hover { background: #007bff; color: white; border-color: #007bff; }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <h1>Zadania JavaScript</h1>
+        <div class="menu-list">
+            <button onclick="runEvenNumbers()">1. Liczby parzyste</button>
+            <button onclick="runTest()">2. Funkcja testowa</button>
+            <button onclick="runFibonacci()">3. Ciąg Fibonacciego</button>
+            <button onclick="runFactorial()">4. Silnia</button>
+            <button onclick="runPiCalc()">5. Obliczanie liczby π</button>
+            <button onclick="runTree()">6. Rysowanie choinki</button>
+            <button onclick="runHex()">7. System szesnastkowy</button>
+        </div>
+    </div>
+
+    <script>
+        function runEvenNumbers() {
+            let a = parseInt(prompt("Podaj początek zakresu:", "0"));
+            let b = parseInt(prompt("Podaj koniec zakresu:", "20"));
+            let wynik = [];
+            for (let i = a; i <= b; i++) {
+                if (i % 2 === 0) wynik.push(i);
+            }
+            console.log("Liczby parzyste:", wynik);
+        }
+
+        function runTest() {
+            console.log("Witaj JS!");
+        }
+
+        function runFibonacci() {
+            let n = parseInt(prompt("Ile liczb ciągu Fibonacciego wyświetlić?", "10"));
+            let wynik = [];
+            for (let i = 0; i < n; i++) {
+                if (i === 0) wynik.push(0);
+                else if (i === 1) wynik.push(1);
+                else wynik.push(wynik[i - 1] + wynik[i - 2]);
+            }
+            console.log("Ciąg Fibonacciego:", wynik);
+        }
+
+        function silnia(n) {
+            if (n === 0 || n === 1) return 1;
+            return n * silnia(n - 1);
+        }
+
+        function runFactorial() {
+            let n = parseInt(prompt("Podaj liczbę:", "5"));
+            console.log("Silnia wynosi:", silnia(n));
+        }
+
+        function runPiCalc() {
+            let n = parseInt(prompt("Podaj liczbę iteracji:", "100"));
+            let suma = 0;
+            for (let i = 0; i < n; i++) {
+                let mianownik = 2 * i + 1;
+                if (i % 2 === 0) suma += 1 / mianownik;
+                else suma -= 1 / mianownik;
+            }
+            console.log("Wynik y = 4 * suma:", 4 * suma);
+        }
+
+        function runTree() {
+            let n = parseInt(prompt("Podaj wysokość choinki:", "5"));
+            console.clear();
+            for (let i = 1; i <= n; i++) {
+                let spacje = " ".repeat(n - i);
+                let gwiazdki = "*".repeat(2 * i - 1);
+                console.log(spacje + gwiazdki);
+            }
+        }
+
+        function runHex() {
+            let n = parseInt(prompt("Podaj liczbę dziesiętną:", "255"));
+            if (n === 0) {
+                console.log("0");
+                return;
+            }
+            let znaki = "0123456789ABCDEF";
+            let wynik = "";
+            let temp = n;
+            while (temp > 0) {
+                let reszta = temp % 16;
+                wynik = znaki[reszta] + wynik;
+                temp = Math.floor(temp / 16);
+            }
+            console.log("Wartość HEX:", wynik);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorium 8 - Formularz i Liczby Zespolone</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #cf30aa;
+            --bg: #0b1320;
+            --card-bg: #162130;
+            --text: #ffffff;
+            --input-bg: #0b1320;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            padding: 40px 20px;
+            margin: 0;
+        }
+
+        /* Styl formularza */
+        .form, .box {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -1px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .message {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .flex {
+            display: flex;
+            width: 100%;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .form label {
+            position: relative;
+            width: 100%;
+        }
+
+        .form label .input {
+            width: 100%;
+            background-color: var(--input-bg);
+            color: white;
+            padding: 15px 10px 5px 10px;
+            outline: 0;
+            border: 1px solid rgba(105, 105, 105, 0.397);
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .form label .input + span {
+            position: absolute;
+            left: 10px;
+            top: 15px;
+            color: #aaa;
+            font-size: 0.9em;
+            cursor: text;
+            transition: 0.3s ease;
+        }
+
+        .form label .input:placeholder-shown + span {
+            top: 15px;
+            font-size: 0.9em;
+        }
+
+        .form label .input:focus + span,
+        .form label .input:not(:placeholder-shown) + span {
+            top: 5px;
+            font-size: 0.7em;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .submit, .box button {
+            border: none;
+            outline: none;
+            background-color: var(--primary);
+            padding: 12px;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            transform: .3s ease;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .submit:hover, .box button:hover {
+            background-color: #e639bc;
+        }
+
+        /* Styl sekcji liczb zespolonych */
+        .box h2 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        .box p {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+
+        .box span {
+            color: #4dff88;
+            font-family: monospace;
+        }
+
+        /* Popup */
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            color: #333;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            z-index: 1000;
+            min-width: 300px;
+        }
+
+        #popup b { color: var(--primary); }
+        
+        .close-btn {
+            margin-top: 15px;
+            background: #333;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Popup i Overlay -->
+    <div id="overlay" class="overlay" onclick="zamknijPopup()"></div>
+    <div id="popup">
+        <h2>Wynik rejestracji</h2>
+        <div id="popupContent"></div>
+        <button class="close-btn" onclick="zamknijPopup()">Zamknij</button>
+    </div>
+
+    <!-- Formularz -->
+    <form class="form" id="formularz">
+        <p class="title">Register</p>
+        <p class="message">Signup now and get full access to our app.</p>
+        
+        <div class="flex">
+            <label>
+                <input type="text" id="imie" class="input" placeholder=" " required="">
+                <span>Imię</span>
+            </label>
+        </div>
+
+        <div class="flex">
+            <label>
+                <input class="input" type="text" id="nazwisko" placeholder=" " required="">
+                <span>Nazwisko</span>
+            </label>
+        </div>
+
+        <div class="flex">
+            <label>
+                <input class="input" type="number" id="wiek" placeholder=" " required="">
+                <span>Wiek</span>
+            </label>
+        </div>
+
+        <button class="submit" type="submit">Submit</button>
+        <p style="text-align: center; font-size: 13px; color: #aaa; margin-top: 15px;">Already have an account? <a href="#" style="color: var(--primary);">Sign in</a></p>
+    </form>
+
+    <!-- Sekcja Liczb Zespolonych -->
+    <div class="box">
+        <h2>Liczby zespolone</h2>
+        <button onclick="uruchom()">Generuj Liczby</button>
+
+        <p><b>Wszystkie:</b><br><span id="all">---</span></p>
+        <p><b>Dodatnie (Re > 0, Im > 0):</b><br><span id="positive">---</span></p>
+        <p><b>Zamienione (Swap Re/Im):</b><br><span id="swapped">---</span></p>
+        <p><b>Suma modułów:</b> <span id="sum">0.00</span></p>
+        <p><b>Najmniejszy moduł:</b> <span id="min">0.00</span></p>
+        <p><b>Największa (według modułu):</b> <br><span id="max">---</span></p>
+    </div>
+
+    <script>
+        // --- FUNKCJE POPUP ---
+        function pokazPopup(tresc) {
+            document.getElementById("popupContent").innerHTML = tresc;
+            document.getElementById("popup").style.display = "block";
+            document.getElementById("overlay").style.display = "block";
+        }
+
+        function zamknijPopup() {
+            document.getElementById("popup").style.display = "none";
+            document.getElementById("overlay").style.display = "none";
+        }
+
+        // --- OBSŁUGA FORMULARZA ---
+        document.getElementById("formularz").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const osoba = {
+                imie: document.getElementById("imie").value,
+                nazwisko: document.getElementById("nazwisko").value,
+                wiek: Number(document.getElementById("wiek").value)
+            };
+
+            pokazPopup(`
+                <b>Obiekt:</b> ${JSON.stringify(osoba)} <br><br>
+                <b>Dane:</b> ${osoba.imie} ${osoba.nazwisko}, ${osoba.wiek} lat <br><br>
+                <b>JSON:</b> <small>${JSON.stringify(osoba)}</small>
+            `);
+        });
+
+        // --- KLASA I LOGIKA LICZB ZESPOLONYCH ---
+        class ComplexNumber {
+            constructor(real, imaginary) {
+                this.real = real;
+                this.imaginary = imaginary;
+            }
+
+            wypisz() {
+                const znak = this.imaginary >= 0 ? "+" : "-";
+                return `${this.real} ${znak} ${Math.abs(this.imaginary)}i`;
+            }
+
+            module() {
+                return Math.sqrt(this.real ** 2 + this.imaginary ** 2);
+            }
+        }
+
+        function generujLiczby(n) {
+            const arr = [];
+            for (let i = 0; i < n; i++) {
+                const real = Math.floor(Math.random() * 21) - 10;
+                const imag = Math.floor(Math.random() * 21) - 10;
+                arr.push(new ComplexNumber(real, imag));
+            }
+            return arr;
+        }
+
+        function uruchom() {
+            const liczby = generujLiczby(5);
+
+            // Wszystkie
+            document.getElementById("all").innerHTML =
+                liczby.map(l => l.wypisz()).join(", ");
+
+            // Filter
+            const dodatnie = liczby.filter(l => l.real > 0 && l.imaginary > 0);
+            document.getElementById("positive").innerHTML =
+                dodatnie.length > 0 ? dodatnie.map(l => l.wypisz()).join(", ") : "Brak";
+
+            // Map (zamiana Re i Im)
+            const zamienione = liczby.map(l => new ComplexNumber(l.imaginary, l.real));
+            document.getElementById("swapped").innerHTML =
+                zamienione.map(l => l.wypisz()).join(", ");
+
+            // Reduce - Suma modułów
+            const suma = liczby.reduce((acc, l) => acc + l.module(), 0);
+            document.getElementById("sum").innerText = suma.toFixed(2);
+
+            // Reduce - Min moduł
+            const min = liczby.reduce((m, l) =>
+                l.module() < m ? l.module() : m,
+                liczby[0].module()
+            );
+            document.getElementById("min").innerText = min.toFixed(2);
+
+            // Reduce - Max (zwraca obiekt)
+            const max = liczby.reduce((m, l) =>
+                l.module() > m.module() ? l : m
+            );
+            document.getElementById("max").innerText = max.wypisz();
+        }
+    </script>
+</body>
+</html>
